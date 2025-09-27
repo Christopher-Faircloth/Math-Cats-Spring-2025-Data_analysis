@@ -97,6 +97,14 @@ df["Check In Time"] = df["Check In Time"].dt.strftime("%#I:%M %p")
 df = df.drop(columns = ["Categories", "Tags", "Classification", "Location", "Cumulative GPA"])
 #This is used so that the last 3 rows that contain "unique studetns" is deleted
 df = df[df["Course Name"].notna()]
+
+#anonymizes student names
+uniqueStudents = df["NetID"].unique()
+counter = 1000
+for name in uniqueStudents:
+    df.loc[df["NetID"] == name, "NetID"] = counter
+    counter += 1
+
 # Save to a new Excel file
 df.to_excel(file_output, sheet_name = sheetName, index=False)
 # format the excel file
