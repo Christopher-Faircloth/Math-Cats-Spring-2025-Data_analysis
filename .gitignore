@@ -2,6 +2,5 @@
 .venv/
 venv/
 
-# Ignore all Excel files
-*.xlsx
-*.csv
+# Ignore the original excel file
+/data/Full Spring 2025.xlsx
