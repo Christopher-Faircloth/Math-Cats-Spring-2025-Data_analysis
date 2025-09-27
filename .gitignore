@@ -1,0 +1,7 @@
+# Ignore virtual environments
+.venv/
+venv/
+
+# Ignore all Excel files
+*.xlsx
+*.csv
