@@ -5,3 +5,5 @@ venv/
 # Ignore the original excel file
 /data/Full Spring 2025.xlsx
 /data/Students Grade Report.csv
+
+/scripts/Clean Data/__pycache__

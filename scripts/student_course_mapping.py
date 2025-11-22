@@ -3,25 +3,36 @@
 #when students come in for a class they normally work on all their classes, so although they may not select the
 #same class every time they get tutored for it regardless
 
+
+# as of 10/25/2025
+# this file contain 812 unique ids
+# this drops from 850 due to 48 students not haveing a final grade
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
-from collections import Counter
+
+# this is used to change the course categories to just stem and non-stem
+def change_categories(row):
+    course_name = str(row["Course Number"])
+    course_name = course_name.lower()
+    if course_name.startswith("math-"):
+        return "Math"
+    else:
+        return "Non-Math"
 
 input_file = "../data/Check_In_Cleaned.xlsx"
 output_file = "../results/Student Course Count.xlsx"
 sheetName = "Student course count" 
 original = pd.read_excel(input_file)
 
+
 df = (
     original
-    .groupby(['NetID', 'Course Name'])
+    .groupby(['NetID', 'Course Name', 'Course Number', 'Course Category', 'Final Grade'])
     .size()
     .reset_index(name='Count')
 )
-
-df = df[['NetID', 'Course Name', 'Count']]
-
+df["Course Category"] = df.apply(change_categories, axis=1)
 # save to Excel
 df.to_excel(output_file, sheet_name = sheetName, index=False)
 
